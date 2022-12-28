@@ -31,7 +31,7 @@ texture = ExtResource( 1 )
 expand = true
 
 [node name="GameArea" type="Node2D" parent="."]
-position = Vector2( 192, 39 )
+position = Vector2( 192, -9 )
 script = ExtResource( 3 )
 
 [node name="Timer" type="Timer" parent="GameArea"]

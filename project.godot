@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Sprite",
+"class": "Blob",
+"language": "GDScript",
+"path": "res://Blob.gd"
+}, {
+"base": "Node2D",
+"class": "GameArea",
+"language": "GDScript",
+"path": "res://GameArea.gd"
+}, {
+"base": "Node2D",
+"class": "PlayerBlob",
+"language": "GDScript",
+"path": "res://PlayerBlob.gd"
+} ]
+_global_script_class_icons={
+"Blob": "",
+"GameArea": "",
+"PlayerBlob": ""
+}
+
 [application]
 
 config/name="blobtris"

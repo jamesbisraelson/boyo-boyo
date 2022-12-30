@@ -7,8 +7,8 @@ const gravity_timer_medium: float = 0.15
 const gravity_timer_fast: float = 0.10
 const gravity_timer_faster: float = 0.05
 
-const area_width: int = 6
-const area_height: int = 15
+const area_width: int = 7
+const area_height: int = 14
 
 var player_blob: PlayerBlob
 var blob_list: Array
@@ -45,7 +45,7 @@ func _remove_player():
 
 func _spawn_blob():
 	blobs_spawned += 1
-	var blob = PlayerBlob.new((randi() % 5) + 1, (randi() % 5) + 1, 2, 0)
+	var blob = PlayerBlob.new((randi() % 5) + 1, (randi() % 5) + 1, 3, 0)
 	player_blob = blob
 	add_child(blob)
 

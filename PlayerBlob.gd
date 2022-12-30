@@ -2,9 +2,9 @@ class_name PlayerBlob
 
 extends Node2D
 
-const area_width: int = 6
-const area_height: int = 15
-const blob_size = 16
+const area_width: int = 7
+const area_height: int = 14
+const blob_size = 8
 
 var head: Sprite
 var head_type: int

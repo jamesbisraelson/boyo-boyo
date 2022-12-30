@@ -2,7 +2,7 @@ class_name Blob
 
 extends Sprite
 
-const blob_size = 16
+const blob_size = 8
 
 var x_pos: int
 var y_pos: int
@@ -22,7 +22,7 @@ func _init(type: int, x_pos: int, y_pos: int):
 	position = Vector2(x_pos, y_pos) * blob_size
 
 	texture = load("res://blob%d.png" % type)
-	explosion.texture = load("res://particle%d.png" % type)
+	explosion.texture = load("res://blob%d.png" % type)
 	centered = false
 
 func _process(delta):

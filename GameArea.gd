@@ -23,9 +23,15 @@ var next_tail_spr: Sprite
 
 var random: RandomNumberGenerator
 
+var score: int
+var add_to_score: int
+
 signal next_blob_changed
 
 func _init():
+	score = 0
+	add_to_score = 0
+
 	next_head_spr = Sprite.new()
 	next_tail_spr = Sprite.new()
 	add_child(next_head_spr)
@@ -51,7 +57,14 @@ func _ready():
 	_spawn_blob()
 
 
-func _process(_delta):
+func _process(delta):
+	if add_to_score > 0:
+		var amount = min(9 + (randi() % 2), add_to_score)
+		add_to_score -= amount
+		score += amount
+
+	get_node("/root/GameScene/Border/Score").text = "%005d" % score
+
 	if player_blob is PlayerBlob and player_blob.hit_bottom:
 		_start_break_phase()
 	if blobs_spawned > 10:
@@ -107,6 +120,7 @@ func _start_break_phase():
 		broke_blob = false
 		for blob in blob_list:
 			if blob is Blob and blob.should_break:
+				add_to_score += 100
 				blob.break_blob()
 				broke_blob = true
 

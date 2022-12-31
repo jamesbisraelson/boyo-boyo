@@ -12,17 +12,17 @@ _global_script_classes=[ {
 "base": "Sprite",
 "class": "Blob",
 "language": "GDScript",
-"path": "res://Blob.gd"
+"path": "res://scripts/Blob.gd"
 }, {
 "base": "Node2D",
 "class": "GameArea",
 "language": "GDScript",
-"path": "res://GameArea.gd"
+"path": "res://scripts/GameArea.gd"
 }, {
 "base": "Node2D",
 "class": "PlayerBlob",
 "language": "GDScript",
-"path": "res://PlayerBlob.gd"
+"path": "res://scripts/PlayerBlob.gd"
 } ]
 _global_script_class_icons={
 "Blob": "",
@@ -32,19 +32,23 @@ _global_script_class_icons={
 
 [application]
 
-config/name="blobtris"
-run/main_scene="res://Scene.tscn"
-config/icon="res://icon.png"
+config/name="Boyo Boyo"
+run/main_scene="res://scenes/MenuScene.tscn"
+config/icon="res://assets/blob1.png"
 
 [display]
 
 window/size/width=200
 window/size/height=150
 window/size/resizable=false
-window/size/test_width=960
-window/size/test_height=540
+window/size/test_width=800
+window/size/test_height=600
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[global]
+
+scene=false
 
 [gui]
 

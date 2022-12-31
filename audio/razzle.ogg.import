@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/razzle.ogg-292f47d041b67dfab9b2220c3cc78ae2.oggstr"
+
+[deps]
+
+source_file="res://audio/razzle.ogg"
+dest_files=[ "res://.import/razzle.ogg-292f47d041b67dfab9b2220c3cc78ae2.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

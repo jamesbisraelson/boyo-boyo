@@ -68,6 +68,8 @@ func _input(event):
 		move_left()
 	if event.is_action_pressed("ui_right"):
 		move_right()
+	if event.is_action_pressed("ui_down"):
+		go_to_bottom()
 	if event.is_action_pressed("game_rotate_c"):
 		_rotate_clockwise()
 	if event.is_action_pressed("game_rotate_cc"):
@@ -79,7 +81,7 @@ func _process(delta):
 	tail.position = tail.position.linear_interpolate(tail_pos * blob_size, 20.0 * delta)
 
 	head_outline.position = (_get_head_outline_pos() * blob_size) - position
-	tail_outline.position = (_get_tail_outline_pos() * blob_size) - position
+	tail_outline.position = ((_get_tail_outline_pos()) * blob_size) - position
 
 	if not can_move(Vector2.DOWN):
 		ground_time -= delta
@@ -89,29 +91,30 @@ func _process(delta):
 	if ground_time <= 0:
 		hit_bottom = true
 
-
 func _get_tail_outline_pos():
 	var blob_list = get_parent().blob_list
 
-	var output =  Vector2(x_pos + tail_pos.x, area_height - 1)
-
-	for y in area_height - 1:
+	for y in area_height:
 		if blob_list[(area_width * y) + x_pos + tail_pos.x] != null:
-			output = Vector2(x_pos + tail_pos.x, y - 1)
+			if tail_pos.is_equal_approx(Vector2.UP):
+				return Vector2(x_pos + tail_pos.x, y - 2)
+			return Vector2(x_pos + tail_pos.x, y - 1)
+	if tail_pos.is_equal_approx(Vector2.UP):
+		return Vector2(x_pos + tail_pos.x, area_height - 2)
+	return Vector2(x_pos + tail_pos.x, area_height - 1)
 
-	return output
 
 func _get_head_outline_pos():
 	var blob_list = get_parent().blob_list
 
-	var output =  Vector2(x_pos, area_height - 1)
-
 	for y in area_height:
 		if blob_list[(area_width * y) + x_pos] != null:
-			output = Vector2(x_pos, y - 1)
+			if tail_pos.is_equal_approx(Vector2.DOWN):
+				return Vector2(x_pos, y - 2)
+			return Vector2(x_pos, y - 1)
 	if tail_pos.is_equal_approx(Vector2.DOWN):
-		output.y -= 1
-	return output
+		return Vector2(x_pos, area_height - 2)
+	return Vector2(x_pos, area_height - 1)
 
 
 func player_to_blob():
@@ -145,6 +148,11 @@ func move_up():
 	if can_move(Vector2.UP):
 		move_on_ground()
 		y_pos -= 1
+
+
+func go_to_bottom():
+	while can_move(Vector2.DOWN):
+		y_pos += 1
 
 
 func rotate_on_ground():

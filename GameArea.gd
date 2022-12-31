@@ -16,15 +16,40 @@ var blob_list: Array
 var blobs_spawned: int
 var spawn_timer: float
 
+var next_head: int
+var next_tail: int
+var next_head_spr: Sprite
+var next_tail_spr: Sprite
+
+var random: RandomNumberGenerator
+
+signal next_blob_changed
+
 func _init():
+	next_head_spr = Sprite.new()
+	next_tail_spr = Sprite.new()
+	add_child(next_head_spr)
+	add_child(next_tail_spr)
+
 	blobs_spawned = 0
 	blob_list.resize(area_width * area_height)
 	blob_list.fill(null)
 
+
 func _ready():
-	randomize()
+	next_head_spr.global_position = Vector2(168, 40)
+	next_tail_spr.global_position = Vector2(168, 48)
+	next_head_spr.z_index = 2
+	next_tail_spr.z_index = 2
+
+	random = RandomNumberGenerator.new()
+	random.seed = get_parent().seed_num
+
 	$Timer.connect("timeout", self, "_gravity")
+	self.connect("next_blob_changed", self, "_next_blob_changed")
+	_get_next_blobs()
 	_spawn_blob()
+
 
 func _process(_delta):
 	if player_blob is PlayerBlob and player_blob.hit_bottom:
@@ -36,6 +61,24 @@ func _process(_delta):
 	if blobs_spawned > 30:
 		$Timer.wait_time = gravity_timer_faster
 
+	if blob_list[(3 * area_width) + 3] != null:
+		game_over()
+
+
+func _next_blob_changed():
+	next_tail_spr.texture = load("res://blob%d.png" % next_tail)
+	next_head_spr.texture = load("res://blob%d.png" % next_head)
+
+
+func _get_next_blobs():
+	next_head = random.randi_range(1, 5)
+	next_tail = random.randi_range(1, 5)
+	emit_signal("next_blob_changed")
+
+
+func game_over():
+	get_tree().quit()
+
 
 func _remove_player():
 	if player_blob != null:		
@@ -45,9 +88,10 @@ func _remove_player():
 
 func _spawn_blob():
 	blobs_spawned += 1
-	var blob = PlayerBlob.new((randi() % 5) + 1, (randi() % 5) + 1, 3, 0)
+	var blob = PlayerBlob.new(next_head, next_tail, 3, 0)
 	player_blob = blob
 	add_child(blob)
+	_get_next_blobs()
 
 
 func _gravity():

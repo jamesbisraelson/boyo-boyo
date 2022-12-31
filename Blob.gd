@@ -11,19 +11,26 @@ var type: int
 var should_break: bool
 var explosion: Particles2D
 
+var player: AudioStreamPlayer
+var sound_explode = preload("res://explosion.wav")
 
-func _init(type: int, x_pos: int, y_pos: int):
+func _init(type: int, x_pos: int, y_pos: int, starting_pos: Vector2):
 	explosion = load("res://Explosion.tscn").instance()
 	self.type = type
 	self.x_pos = x_pos
 	self.y_pos = y_pos
 	self.should_break = false
 
-	position = Vector2(x_pos, y_pos) * blob_size
+	self.position = starting_pos
 
 	texture = load("res://blob%d.png" % type)
 	explosion.texture = load("res://blob%d.png" % type)
 	centered = false
+
+	player = AudioStreamPlayer.new()
+	player.volume_db = -5
+
+	add_child(player)
 
 func _process(delta):
 	position = position.linear_interpolate(Vector2(x_pos, y_pos) * blob_size, 20.0 * delta)
@@ -81,6 +88,7 @@ func _break_phase():
 
 
 func break_blob():
+	get_node("/root/GameScene/ExplosionPlayer").play()
 	get_parent().add_child(explosion)
 	explosion.global_position = self.global_position
 	explosion.emitting = true

@@ -68,7 +68,7 @@ func _process(delta):
 
 		get_node("/root/GameScene/Border/Score").text = "%005d" % score
 
-		if player_blob is PlayerBlob and player_blob.hit_bottom:
+		if player_blob != null and player_blob.hit_bottom:
 			_start_break_phase()
 		if blobs_spawned < 10:
 			$GravityTimer.wait_time = gravity_timer_slow
@@ -115,7 +115,7 @@ func start_game_over():
 	game_over = true
 
 	for blob in blob_list:
-		if blob is Blob:
+		if blob != null:
 			blob.break_blob()
 	
 	get_node("/root/GameScene/GameOverBackground").visible = true
@@ -134,7 +134,7 @@ func _spawn_blob():
 
 
 func _gravity():
-	if player_blob is PlayerBlob:
+	if player_blob != null:
 		player_blob.move_down()
 
 # this function is gross and i should fix it sometime
@@ -147,7 +147,7 @@ func _start_break_phase():
 
 		broke_blob = false
 		for blob in blob_list:
-			if not game_over and blob is Blob and blob.should_break:
+			if not game_over and blob != null and blob.should_break:
 				add_to_score += 100
 				blob.break_blob()
 				broke_blob = true

@@ -85,6 +85,7 @@ valign = 1
 
 [node name="Backround" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
+frame = 1
 playing = true
 centered = false
 offset = Vector2( 72, 24 )

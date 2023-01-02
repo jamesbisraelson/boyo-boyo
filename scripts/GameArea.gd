@@ -29,7 +29,6 @@ var score: int
 var add_to_score: int
 
 var game_over = false
-var broke_blob = true
 
 
 signal next_blob_changed
@@ -122,10 +121,9 @@ func start_game_over():
 	get_node("/root/GameScene/GameOverBackground").visible = true
 			
 func _remove_player():
-	if player_blob != null:		
-		player_blob.player_to_blob()
-		player_blob.queue_free()
-		player_blob = null
+	player_blob.player_to_blob()
+	player_blob.queue_free()
+	player_blob = null
 
 func _spawn_blob():
 	blobs_spawned += 1
@@ -143,7 +141,7 @@ func _gravity():
 func _start_break_phase():
 	_remove_player()
 
-	broke_blob = true
+	var broke_blob = true
 	while(broke_blob):
 		yield(get_tree().create_timer(0.5), "timeout")
 

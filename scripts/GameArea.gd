@@ -107,7 +107,7 @@ func _get_next_blobs():
 	if add_bomb <= 5:
 		next_head = bomb_type
 	elif add_bomb <= 10:
-		next_head = bomb_type
+		next_tail = bomb_type
 
 	emit_signal("next_blob_changed")
 

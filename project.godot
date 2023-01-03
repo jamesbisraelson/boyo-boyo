@@ -34,7 +34,8 @@ _global_script_class_icons={
 
 config/name="Boyo Boyo"
 run/main_scene="res://scenes/MenuScene.tscn"
-config/icon="res://assets/blob1.png"
+config/icon="res://assets/icon64.png"
+config/windows_native_icon="res://assets/favicon.ico"
 
 [display]
 
